@@ -1,0 +1,99 @@
+<div class="flex justify-center items-center my-16 text-2xl">
+  <div class="card w-2/3 bg-neutral text-neutral-content px-3">
+    <div class="card-body">
+      <div class="flex justify-center items-center p-3">
+        <h2 class="card-title text-3xl">Create a new Poll:</h2>
+      </div>
+      <form [formGroup]="pollForm" (ngSubmit)="onSubmit()" class="p-4">
+        <div class="mb-4 form-control">
+          <label class="block text-md font-bold mb-2" for="title">
+            Title
+          </label>
+          <input
+            type="text"
+            class="input input-bordered input-primary w-full"
+            id="title"
+            formControlName="title"
+          />
+        </div>
+
+        <div class="mb-4 form-control">
+          <label class="block text-md font-bold mb-2" for="description">
+            Description
+          </label>
+          <textarea
+            class="textarea textarea-primary w-full"
+            id="description"
+            formControlName="description"
+          ></textarea>
+        </div>
+
+        <label class="block text-md font-bold mb-2"> Duration </label>
+        <div class="mb-4 flex justify-between items-center duration">
+          <div class="pr-4">Days</div>
+          <div class="">
+            <input
+              type="number"
+              min="0"
+              class="input input-bordered input-primary w-16"
+              id="days"
+              (keydown)="handleInvalidKeys($event)"
+              formControlName="days"
+            />
+          </div>
+          <div class="px-4">Hours</div>
+          <div class="">
+            <input
+              type="number"
+              class="input input-bordered input-primary w-16"
+              id="hours"
+              (keydown)="handleInvalidKeys($event)"
+              formControlName="hours"
+            />
+          </div>
+          <div class="px-4">Minutes</div>
+          <div class="">
+            <input
+              type="number"
+              class="input input-bordered input-primary w-16"
+              id="minutes"
+              (keydown)="handleInvalidKeys($event)"
+              formControlName="minutes"
+            />
+          </div>
+          <div class="px-4">Seconds</div>
+          <div class="">
+            <input
+              type="number"
+              class="input input-bordered input-primary w-16"
+              id="seconds"
+              (keydown)="handleInvalidKeys($event)"
+              formControlName="seconds"
+            />
+          </div>
+        </div>
+
+        <div formArrayName="options">
+          <div *ngFor="let option of options.controls; index as i" class="pb-4">
+            <label class="block text-md font-bold pb-2" for="option{{ i }}">
+              Option {{ i + 1 }}
+            </label>
+            <input
+              type="text"
+              class="input input-bordered input-primary w-full inline-block"
+              id="option{{ i }}"
+              [formControlName]="i"
+            />
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-4">
+          <button class="btn" type="button" (click)="addOption()">
+            Add Option
+          </button>
+          <button class="btn btn-primary" type="submit">Create</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
